@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier . --write",
-    "dev":"tsnd --respawn ./src/server.ts",
+    "dev": "tsnd --respawn ./src/server.ts",
     "dev:prod": "node ./dist/server.js"
   },
   "author": "",

@@ -7,9 +7,17 @@ import {
 } from './student.interface';
 
 const userNameSchema = new Schema<Username>({
-  firstName: { type: String, required: true },
-  middleName: { type: String },
-  lastName: { type: String, required: true },
+  firstName: { type: String, required: [true, "First name needed"], trim:true, 
+    validate: {
+      validator:function(value:string){
+        const firstNameStr = value.charAt(0).toUpperCase() +value.slice(1).toLowerCase()
+        return firstNameStr === value
+      },
+      message:"First name must be Uppercase and other should be lowercase"
+    }
+   },
+  middleName: { type: String, trim:true },
+  lastName: { type: String, required: true, trim:true },
 });
 const guardianSchema = new Schema<Guardian>({
   fatherName: { type: String },
@@ -29,25 +37,39 @@ const localGuardianSchema = new Schema<LocalGuardian>({
 const studentSchema = new Schema<Student>({
   id: {
     type: String,
+    required:true,
+    unique:true
   },
-  name: userNameSchema,
+  name: {
+    type:userNameSchema,
+    required:true
+  },
   gender:{
     type:String,
-    enum:['Male', 'Female'],
+    enum:{
+      values:['Male', 'Female'],
+      message:"{VALUE} is not valid"
+    },
     required:true
   },
   dateOfBirth: { type: String },
-  email: { type: String, required: true },
-  contactNumber: { type: String, required: true },
-  emergencyContact: { type: String, required: true },
+  email: { type: String, required: true, unique:true, trim:true },
+  contactNumber: { type: String, required: true , trim:true},
+  emergencyContact: { type: String, required: true ,trim:true},
   bloodGroup: {
     type:String,
     enum:['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
   },
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
-  guardian: guardianSchema,
-  localGuardian: localGuardianSchema,
+  guardian: {
+    type:guardianSchema,
+    required:true
+  },
+  localGuardian: {
+    type:localGuardianSchema,
+    required:true
+  },
   profileImage: { type: String },
   isActive: {
     type:String,

@@ -2,14 +2,21 @@ import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
 const crateStudentIntoDB = async (studentData: TStudent) => {
-  const student  = new Student(studentData)
+  // const student  = new Student(studentData)
   
-  if(await student.isUserExist(studentData.id)){
-    throw new Error("Student already Exists")
+  if(await Student.isUserExist(studentData.id)){
+    throw new Error("Student Already exist by static")
   }
-  const result = await student.save();
+  
+  const result  = await Student.create(studentData)
+  // if(await student.isUserExist(studentData.id)){
+  //   throw new Error("Student already Exists")
+  // }
+  // const result = await student.save();
 
   return result;
+
+
 };
 const getAllStudents = async () => {
   const result = await Student.find();

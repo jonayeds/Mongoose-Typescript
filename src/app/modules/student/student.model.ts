@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import validator from 'validator';
+// import validator from 'validator';
 import {
   Guardian,
   LocalGuardian,
@@ -9,21 +9,21 @@ import {
 
 const userNameSchema = new Schema<Username>({
   firstName: { type: String, required: [true, "First name needed"], trim:true, 
-    validate: {
-      validator:function(value:string){
-        const firstNameStr = value.charAt(0).toUpperCase() +value.slice(1).toLowerCase()
-        return firstNameStr === value
-      },
-      message:"First name must be Uppercase and other should be lowercase"
-    }
+    // validate: {
+    //   validator:function(value:string){
+    //     const firstNameStr = value.charAt(0).toUpperCase() +value.slice(1).toLowerCase()
+    //     return firstNameStr === value
+    //   },
+    //   message:"First name must be Uppercase and other should be lowercase"
+    // }
    },
   middleName: { type: String, trim:true },
   lastName: { type: String, required: true, trim:true,
-    validate:{
-      validator:(value:string)=>{
-        return validator.isAlpha(value)
-      }
-    }
+    // validate:{
+    //   validator:(value:string)=>{
+    //     return validator.isAlpha(value)
+    //   }
+    // }
    },
 });
 const guardianSchema = new Schema<Guardian>({
@@ -61,12 +61,12 @@ const studentSchema = new Schema<Student>({
   },
   dateOfBirth: { type: String },
   email: { type: String, required: true, unique:true, trim:true, 
-    validate:{
-      validator:(value:string)=>{
-        return validator.isEmail(value)
-      },
-      message:"{VALUE} is not a valid email"
-    },
+    // validate:{
+    //   validator:(value:string)=>{
+    //     return validator.isEmail(value)
+    //   },
+    //   message:"{VALUE} is not a valid email"
+    // },
    },
   contactNumber: { type: String, required: true , trim:true},
   emergencyContact: { type: String, required: true ,trim:true},
@@ -93,4 +93,4 @@ const studentSchema = new Schema<Student>({
 });
 
 export const StudentModel = model<Student>('Student', studentSchema);
- 
+    

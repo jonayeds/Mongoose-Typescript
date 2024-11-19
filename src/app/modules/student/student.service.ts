@@ -1,16 +1,22 @@
-import { Student } from './student.interface';
-import { StudentModel } from './student.model';
+import { TStudent } from './student.interface';
+import { Student } from './student.model';
 
-const crateStudentIntoDB = async (student: Student) => {
-  const result = await StudentModel.create(student);
+const crateStudentIntoDB = async (studentData: TStudent) => {
+  const student  = new Student(studentData)
+  
+  if(await student.isUserExist(studentData.id)){
+    throw new Error("Student already Exists")
+  }
+  const result = await student.save();
+
   return result;
 };
 const getAllStudents = async () => {
-  const result = await StudentModel.find();
+  const result = await Student.find();
   return result;
 };
 const getASingleStudent = async (id: string) => {
-  const result = await StudentModel.findById(id);
+  const result = await Student.findById(id);
   return result;
 };
 

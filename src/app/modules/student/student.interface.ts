@@ -1,4 +1,6 @@
-export type Guardian = {
+import { Model } from "mongoose";
+
+export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -6,21 +8,21 @@ export type Guardian = {
   motherOccupation: string;
   motherContactNo: string;
 };
-export type Username = {
+export type TUsername = {
   firstName: string;
   middleName: string;
   lastName: string;
 };
-export type LocalGuardian = {
+export type TLocalGuardian = {
   name: string;
   contactNo: string;
   occupation: string;
   address: string;
 };
 
-export interface Student {
+export interface TStudent {
   id: string;
-  name: Username;
+  name: TUsername;
   gender: 'Male' | 'Female';
   email: string;
   dateOfBirth: string;
@@ -30,8 +32,15 @@ export interface Student {
   avatar?: string;
   presentAddress: string;
   permanentAddress: string;
-  guardian: Guardian;
-  localGuardian: LocalGuardian;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
   profileImage?: string;
   isActive: 'active' | 'blocked';
 }
+
+
+export type StudentMethods = {
+  isUserExist(id:string):Promise<TStudent|null>
+}
+
+export type StudentModel = Model<TStudent, Record<string,never>,StudentMethods>

@@ -23,12 +23,17 @@ const getAllStudents = async () => {
   return result;
 };
 const getASingleStudent = async (id: string) => {
-  const result = await Student.findById(id);
+  const result = await Student.findOne({id});
   return result;
 };
+const deleteStudentFromDB = async(studentId:string)=>{
+  const result = await Student.updateOne({id:studentId},{isDeleted:true})
+  return result
+}
 
 export const studentServices = {
   crateStudentIntoDB,
   getAllStudents,
   getASingleStudent,
+  deleteStudentFromDB,
 };

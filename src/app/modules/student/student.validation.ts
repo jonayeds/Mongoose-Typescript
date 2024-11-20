@@ -95,6 +95,9 @@ const studentValidationSchema = z.object({
   isActive: z
     .enum(['active', 'blocked'])
     .default('active'),
+  isDeleted:z
+    .boolean()
+    .default(false)
 });
 
 export default studentValidationSchema;

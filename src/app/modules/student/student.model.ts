@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 // import validator from 'validator';
+import bcrypt from "bcrypt"
 import {
   StudentModel,
   TGuardian,
@@ -8,6 +9,7 @@ import {
   // StudentMethods,
   TUsername,
 } from './student.interface';
+import config from '../../config';
 
 const userNameSchema = new Schema<TUsername>({
   firstName: { type: String, required: [true, "First name needed"], trim:true, 
@@ -48,6 +50,11 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     type: String,
     required:true,
     unique:true
+  },
+  password:{
+    type:String,
+    required:[true, "Password is required"],
+    minlength:[6, "Password must be 6 characters long at least"]
   },
   name: {
     type:userNameSchema,
@@ -93,11 +100,28 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     enum:['active', 'blocked']
   },
 });
+// pre save middleware
+studentSchema.pre("save", async function(next){
+  // Hashing password and save into DB
+  this.password = await bcrypt.hash(this.password,Number(config.salt_rounds))
+  next()
+})
+// post save middleware
+studentSchema.post("save", function(){
+  console.log(this,"after saving data")
+})
+
+
+
+
 //creating a custom instance model
 // studentSchema.methods.isUserExist = async function(id:string){
 //   const existingUser = await Student.findOne({id})
 //   return existingUser
 // }
+
+
+
 
 studentSchema.statics.isUserExist =  async function(id:string){
   const existingUser = await Student.findOne({id})

@@ -50,6 +50,9 @@ const studentValidationSchema = z.object({
   id: z
     .string()
     .trim(),
+  password:z
+    .string()
+    .min(6, {message:"Password must be minium 6 characters"}),
   name: userNameValidationSchema,
   gender: z
     .enum(['Male', 'Female'], { errorMap: () => ({ message: 'Gender must be either "Male" or "Female".' }) }),

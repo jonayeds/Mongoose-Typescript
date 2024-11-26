@@ -51,4 +51,4 @@ export interface TStudent {
 // for creating static
 export interface StudentModel extends Model<TStudent>{
    isUserExist(id:string):Promise<TStudent|null>
-}
+}                  

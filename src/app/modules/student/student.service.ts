@@ -26,8 +26,8 @@ const getASingleStudent = async (id: string) => {
   const result = await Student.findOne({id});
   return result;
 };
-const deleteStudentFromDB = async(studentId:string)=>{
-  const result = await Student.updateOne({id:studentId},{isDeleted:true})
+const deleteStudentFromDB = async(studentId:string, data:object)=>{
+  const result = await Student.updateOne({id:studentId},{data})
   return result
 }
 

@@ -65,7 +65,8 @@ const getASingleStudent = async (req: Request, res: Response) => {
 const deleteAStudent = async(req:Request,res:Response)=>{
   try {
     const studentId = req.params.studentId
-    const result  = await studentServices.deleteStudentFromDB(studentId)
+    const data = req.body
+    const result  = await studentServices.deleteStudentFromDB(studentId, data)
     res.status(200).json({
       success:true,
       message:"Successfully deleted student from DB ",

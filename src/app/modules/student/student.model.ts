@@ -114,6 +114,17 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     default: false,
   },
 });
+
+// mongoose virtual
+studentSchema.virtual("fullName").get(function(){
+  return this.name.firstName+this.name.middleName+this.name.lastName
+} )
+
+
+
+
+
+
 // pre save middleware
 studentSchema.pre('save', async function (next) {
   // Hashing password and save into DB

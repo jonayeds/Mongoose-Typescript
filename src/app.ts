@@ -1,4 +1,5 @@
-import express, { Application, Request, Response } from 'express';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import express, { Application,  Request, Response } from 'express';
 import cors from 'cors';
 import { studentRouter } from './app/modules/student/student.route';
 import { UserRoutes } from './app/modules/user/user.routes';
@@ -13,6 +14,16 @@ app.use('/api/v1/students', studentRouter);
 app.use("/api/v1/users", UserRoutes)
 
 
-export default app.get('/', (req: Request, res: Response) => {
+export default app.get('/', (_req: Request, res: Response) => {
   res.send('Hello World!');
 });
+
+app.use((err:any,req:Request, res:Response) => {
+  const statusCode =500
+  const message = err.message || "Something went wrong"
+  return res.status(statusCode).json({
+    success:false,
+    message,
+    error: err
+  }) 
+} )

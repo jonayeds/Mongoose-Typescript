@@ -22,6 +22,7 @@ const userSchema = new Schema<IUser>(
     status: {
       type: String,
       enum: ['inProgress', 'blocked'],
+      default:"inProgress"
     },
     isDeleted: {
       type: Boolean,

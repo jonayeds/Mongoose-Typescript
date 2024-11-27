@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { UserServices } from "./user.service";
 
@@ -18,7 +19,7 @@ const createStudent = async (req: Request, res: Response) => {
         message:err.message || "something went wrong",
         error:err
       })
-    }
+    } 
   };
 
 

@@ -21,9 +21,9 @@ export default app.get('/', (_req: Request, res: Response) => {
 app.use((err:any,req:Request, res:Response) => {
   const statusCode =500
   const message = err.message || "Something went wrong"
-  return res.status(statusCode).json({
+  res.status(statusCode).json({
     success:false,
     message,
     error: err
   }) 
-} )
+})

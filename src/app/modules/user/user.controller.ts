@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { UserServices } from "./user.service";
 
+
 const createStudent = async (req: Request, res: Response, next: NextFunction) => {
     try { 
       const {student:studentData, password} = req.body;
       // const zodParsedData = studentValidationSchema.parse(studentData)
-      // const { error,value} = studentValidationSchema.validate(student)
       const result = await UserServices.crateStudentIntoDB(password, studentData);
       res.status(200).json({
         success: true,
@@ -13,7 +13,7 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
         data:result,
       });
     } catch (err) {
-      next(err)
+        next(err)
     } 
   };
 

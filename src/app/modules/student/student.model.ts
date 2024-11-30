@@ -1,12 +1,10 @@
 import { Schema, model } from 'mongoose';
-// import validator from 'validator';
 
 import {
   StudentModel,
   TGuardian,
   TLocalGuardian,
   TStudent,
-  // StudentMethods,
   TUsername,
 } from './student.interface';
 
@@ -15,31 +13,19 @@ const userNameSchema = new Schema<TUsername>({
     type: String,
     required: [true, 'First name needed'],
     trim: true,
-    // validate: {
-    //   validator:function(value:string){
-    //     const firstNameStr = value.charAt(0).toUpperCase() +value.slice(1).toLowerCase()
-    //     return firstNameStr === value
-    //   },
-    //   message:"First name must be Uppercase and other should be lowercase"
-    // }
   },
   middleName: { type: String, trim: true },
   lastName: {
     type: String,
     required: true,
     trim: true,
-    // validate:{
-    //   validator:(value:string)=>{
-    //     return validator.isAlpha(value)
-    //   }
-    // }
   },
 });
 const guardianSchema = new Schema<TGuardian>({
   fatherName: { type: String },
   fatherOccupation: { type: String },
   fatherContactNo: { type: String },
-  motherName: { type: String },
+  motherName: { type: String }, 
   motherContactNo: { type: String },
   motherOccupation: { type: String },
 });
@@ -80,12 +66,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     required: true,
     unique: true,
     trim: true,
-    // validate:{
-    //   validator:(value:string)=>{
-    //     return validator.isEmail(value)
-    //   },
-    //   message:"{VALUE} is not a valid email"
-    // },
   },
   contactNumber: { type: String, required: true, trim: true },
   emergencyContact: { type: String, required: true, trim: true },
@@ -140,12 +120,6 @@ studentSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
-
-//creating a custom instance model
-// studentSchema.methods.isUserExist = async function(id:string){
-//   const existingUser = await Student.findOne({id})
-//   return existingUser
-// }
 
 studentSchema.statics.isUserExist = async function (id: string) {
   const existingUser = await Student.findOne({ id });

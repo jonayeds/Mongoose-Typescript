@@ -47,7 +47,8 @@ const localGuardianValidationSchema = z.object({
 
 // Main Student Schema
 const studentValidationSchema = z.object({
-  id: z
+  body: z.object({
+    id: z
     .string()
     .trim(),
   password:z
@@ -98,6 +99,10 @@ const studentValidationSchema = z.object({
   isDeleted:z
     .boolean()
     .default(false)
+
+  })
 });
 
-export default studentValidationSchema;
+export const studentValidations = {
+  studentValidationSchema
+};

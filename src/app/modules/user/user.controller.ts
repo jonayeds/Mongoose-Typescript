@@ -1,15 +1,18 @@
 import { UserServices } from "./user.service";
 import { catchAsync } from "../../utils/catchAsync";
+import { response } from "../../utils/sendResponse";
 
 
 const createStudent =catchAsync(async (req, res) => {
-      const {student:studentData, password} = req.body;
-      // const zodParsedData = studentValidationSchema.parse(studentData)
+  const { password} = req.body;
+  const studentData = req.body
+  console.log(studentData, password)
       const result = await UserServices.crateStudentIntoDB(password, studentData);
-      res.status(200).json({
+      response(res, {
         success: true,
-        message: 'Successfully created student',
-        data:result,
+        message: 'Successfully created a student',
+        data: result,
+        statusCode: 200,
       });
   });
 

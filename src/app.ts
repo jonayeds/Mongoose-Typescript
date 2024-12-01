@@ -17,7 +17,7 @@ export default app.get('/', (_req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.use( globalErrorHandler)
+app.use(globalErrorHandler)
 
 // Not found route
 app.use(notFound)

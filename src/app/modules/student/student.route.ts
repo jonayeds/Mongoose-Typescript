@@ -1,8 +1,8 @@
 import express from 'express';
 import { studentControllers } from './student.controller';
-export const studentRouter = express.Router();
+export const StudentRoutes = express.Router();
 
 // will call the controllers
-studentRouter.get('/students', studentControllers.getAllStudents);
-studentRouter.get('/student/:studentId', studentControllers.getASingleStudent);
-studentRouter.delete("/:studentId",studentControllers.deleteAStudent)
+StudentRoutes.get('/students', studentControllers.getAllStudents);
+StudentRoutes.get('/student/:studentId', studentControllers.getASingleStudent);
+StudentRoutes.delete("/:studentId",studentControllers.deleteAStudent)

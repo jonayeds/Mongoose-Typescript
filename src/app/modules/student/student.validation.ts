@@ -46,23 +46,18 @@ const localGuardianValidationSchema = z.object({
 });
 
 // Main Student Schema
-const studentValidationSchema = z.object({
+const createStudentValidationSchema = z.object({
   body: z.object({
-    id: z
+    password:z
     .string()
-    .trim(),
-  password:z
-    .string()
-    .min(6, {message:"Password must be minium 6 characters"}),
+    .min(6, {message:"Password must be minium 6 characters"})
+    .optional(),
+    student: z.object({
   name: userNameValidationSchema,
   gender: z
     .enum(['Male', 'Female'], { errorMap: () => ({ message: 'Gender must be either "Male" or "Female".' }) }),
   dateOfBirth: z
-    .string()
-    // .refine(
-    //   (value) => !isNaN(Date.parse(value)),
-    //   { message: 'Date of Birth must be a valid ISO 8601 date.' }
-    // )
+    .date()
     .optional(),
   email: z
     .string()
@@ -93,16 +88,10 @@ const studentValidationSchema = z.object({
     .string()
     .url({ message: 'Profile image must be a valid URL.' })
     .optional(),
-  isActive: z
-    .enum(['active', 'blocked'])
-    .default('active'),
-  isDeleted:z
-    .boolean()
-    .default(false)
-
+    })
   })
 });
 
 export const studentValidations = {
-  studentValidationSchema
+  createStudentValidationSchema
 };

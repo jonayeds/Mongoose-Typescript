@@ -1,25 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import express, { NextFunction, Request, Response } from "express" 
+import express from "express" 
 import { UserControllers } from "./user.controller"
-import { AnyZodObject } from "zod"
+
 import { studentValidations } from "../student/student.validation"
+import { requestValidator } from "../../middleware/validateRequest"
+
+
 const router = express.Router()
 
-const requestValidator = (schema:AnyZodObject)=>{
-    return async(req:Request,res:Response,next:NextFunction)=>{
-        try{
-            // validation
-            await schema.parseAsync({
-                body:req.body
-            })
-            next()
-        }catch(err:any){
-            next(err.errors[0])
-        }
-    }
-}
 
-
-router.post("/create-student", requestValidator(studentValidations.studentValidationSchema), UserControllers.createStudent)
+router.post("/create-student", requestValidator(studentValidations.createStudentValidationSchema), UserControllers.createStudent)
 
 export const UserRoutes = router

@@ -28,7 +28,7 @@ export interface TStudent {
   password:string;
   gender: 'Male' | 'Female';
   email: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   contactNumber: string;
   emergencyContact: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';

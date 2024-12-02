@@ -23,7 +23,19 @@ const getAllAcademicSemester = catchAsync(async(req:Request,res:Response)=>{
     })
 })
 
+const getAcademicSemesterById = catchAsync(async(req:Request,res:Response)=>{
+    const {semesterId} = req.params
+    const result = await AcademicSemesterServices.getASingleSemesterFromDB(semesterId)
+    response(res,{
+        statusCode:200,
+        success:true,
+        message:"Successfully fetched a single academic semester data",
+        data:result
+    })
+})
+
 export const AcademicSemesterControllers = {
     createAcademicSemester,
-    getAllAcademicSemester
+    getAllAcademicSemester,
+    getAcademicSemesterById
 }

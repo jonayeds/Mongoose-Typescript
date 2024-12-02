@@ -9,3 +9,7 @@ export interface IAcademicSemester{
     startMonth:TMonths;
     endMonth:TMonths
 }
+
+export type TAcademicSemesterNameCodeValidation = {
+    [key:string]:string
+}

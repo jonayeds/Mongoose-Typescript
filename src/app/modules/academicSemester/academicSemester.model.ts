@@ -41,9 +41,6 @@ academicSemesterSchema.pre("save", async function(next){
     next()
 })
 
-academicSemesterSchema.pre("findOneAndUpdate", async function(next){
-    console.log(this)
-    next()
-})
+
 
 export const AcademicSemester = model<IAcademicSemester>("AcademicSemester", academicSemesterSchema) 

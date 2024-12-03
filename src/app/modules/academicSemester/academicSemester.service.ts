@@ -23,7 +23,13 @@ const getASingleSemesterFromDB = async(semesterId:string)=>{
     return result
 }
 
-const updateAcademicSemester = async(semesterId:string, updateData:IAcademicSemester)=>{
+const updateAcademicSemester = async(semesterId:string, updateData:Partial<IAcademicSemester>)=>{
+    if(updateData.name && 
+        updateData.code &&
+        academicSemesterNameCodeValidation[updateData.name] !== updateData.code
+    ){
+        throw new Error("Invalid semester code");
+    }
     const result = await AcademicSemester.findByIdAndUpdate(semesterId, updateData,{new:true})
     return result
 }

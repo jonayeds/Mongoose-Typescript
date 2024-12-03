@@ -1,4 +1,5 @@
 import config from "../../config";
+import { IAcademicSemester } from "../academicSemester/academicSemester.interface";
 import { TStudent } from "../student/student.interface";
 import { Student } from "../student/student.model";
 import { IUser } from "./user.interface";
@@ -10,14 +11,19 @@ const crateStudentIntoDB = async (password:string , studentData: TStudent) => {
   
   // if password is not given, using default password
       userData.password = password || config.default_password as string
+    
 
+    // generate student id
+    // const generateStudentId = (payload:IAcademicSemester)=>{
+
+    // }
 
     // set student role
     userData.role = "student"
     
     // set generated id
-    userData.id = "2023000000202"
-    
+    // userData.id = generateStudentId()
+    userData.id = "232"
     // create a user
     const newUser  = await User.create(userData)
 

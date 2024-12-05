@@ -37,7 +37,7 @@ const crateStudentIntoDB = async (password:string , payload: TStudent) => {
       payload.id = newUser.id
       payload.user = newUser._id
       const newStudent = await Student.create(payload)
-      return newStudent
+      return newStudent   
     }
   };
 
